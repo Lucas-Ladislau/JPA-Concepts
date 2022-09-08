@@ -24,9 +24,18 @@ public class CadastrarProduto {
         //utilizando spring por exemplo, já temos tudo isso com a injeção de dependencia
         //onde podemos usar diretamente a classe DAO
         em.getTransaction().begin();
-        categoriaDAO.cadastrar(celulares);
-        produtoDAO.cadastrar(produto);
-        em.getTransaction().commit();
-        em.close();
+//        categoriaDAO.cadastrar(celulares);
+//        produtoDAO.cadastrar(produto);
+        em.persist(celulares);
+        celulares.setNome("Samsung");
+        em.flush();
+        em.clear();
+//        O merge devolve uma referência da classe, portanto é preciso
+//        vincular ela a classe novamente
+         celulares = em.merge(celulares);
+         celulares.setNome("Apple");
+         em.flush();
+//        em.getTransaction().commit();
+//        em.close();
     }
 }
