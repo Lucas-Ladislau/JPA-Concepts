@@ -8,6 +8,7 @@ import br.com.alura.loja.util.JPAUtil;
 
 import javax.persistence.EntityManager;
 import java.math.BigDecimal;
+import java.util.List;
 
 /**
  * Created by Lucas Anderson Ladislau Aguiar on 05/09/2022.
@@ -18,7 +19,13 @@ public class CadastrarProduto {
         EntityManager em = JPAUtil.getEntityManager();
         ProdutoDAO produtoDAO = new ProdutoDAO(em);
         Produto produtoPesquisado = produtoDAO.seachByID(1l);
-        System.out.print(produtoPesquisado.getNome());
+        System.out.println(produtoPesquisado.getNome());
+
+        List<Produto> p2 = produtoDAO.searchByNameCategoria("CELULARES");
+        p2.forEach(produto -> System.out.println(produto.getDescricao()));
+
+        BigDecimal preco = produtoDAO.searchByPrecoDoProdutoPorNome("Xiaomi Redmi");
+        System.out.println("Preco do Redmi é: R$"+preco);
 
     }
 

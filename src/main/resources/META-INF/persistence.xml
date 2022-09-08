@@ -12,6 +12,8 @@
             <property name="javax.persistence.jdbc.password" value=""/>
             <property name="hibernate.dialect" value="org.hibernate.dialect.H2Dialect"/>
             <property name="hibernate.show_sql" value="true"/>
+            <!--Faz a formatação do sql que será exibido no console-->
+            <property name="hibernate.format_sql" value="true"/>
             <!-- Criação automática das tabelas pelo hibernate -->
             <property name="hibernate.hbm2ddl.auto" value="update"/>
         </properties>
