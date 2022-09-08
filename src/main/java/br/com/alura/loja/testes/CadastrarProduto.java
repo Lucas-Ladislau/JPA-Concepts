@@ -14,6 +14,33 @@ import java.math.BigDecimal;
  */
 public class CadastrarProduto {
     public static void main(String[] args) {
+        cadastrarProduto();
+        EntityManager em = JPAUtil.getEntityManager();
+        ProdutoDAO produtoDAO = new ProdutoDAO(em);
+        Produto produtoPesquisado = produtoDAO.seachByID(1l);
+        System.out.print(produtoPesquisado.getNome());
+
+    }
+
+    private static void cadastrarProduto() {
+        Categoria celulares = new Categoria("CELULARES");
+        Produto celular = new Produto("Xiaomi Redmi", "Muito legal", new BigDecimal("800"), celulares );
+
+        EntityManager em = JPAUtil.getEntityManager();
+        ProdutoDAO produtoDao = new ProdutoDAO(em);
+        CategoriaDAO categoriaDao = new CategoriaDAO(em);
+
+        em.getTransaction().begin();
+
+        categoriaDao.cadastrar(celulares);
+        produtoDao.cadastrar(celular);
+
+        em.getTransaction().commit();
+        em.close();
+    }
+
+
+    private static void estadosJPA() {
         Categoria celulares = new Categoria("CELULARES");
         Produto produto = new Produto("Xiomi","Muito legal",new BigDecimal("800"), celulares);
 
@@ -32,10 +59,11 @@ public class CadastrarProduto {
         em.clear();
 //        O merge devolve uma referência da classe, portanto é preciso
 //        vincular ela a classe novamente
-         celulares = em.merge(celulares);
-         celulares.setNome("Apple");
-         em.flush();
-//        em.getTransaction().commit();
-//        em.close();
+        celulares = em.merge(celulares);
+        celulares.setNome("Apple");
+        em.flush();
+        em.persist(produto);
+        em.getTransaction().commit();
+        em.close();
     }
 }

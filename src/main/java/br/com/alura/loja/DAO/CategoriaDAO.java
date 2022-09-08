@@ -1,7 +1,6 @@
 package br.com.alura.loja.DAO;
 
 import br.com.alura.loja.model.Categoria;
-import br.com.alura.loja.model.Produto;
 
 import javax.persistence.EntityManager;
 
@@ -10,21 +9,23 @@ import javax.persistence.EntityManager;
  */
 public class CategoriaDAO {
 
-    private final EntityManager em;
+	private EntityManager em;
 
-    public CategoriaDAO(EntityManager em) {
-        this.em = em;
-    }
+	public CategoriaDAO(EntityManager em) {
+		this.em = em;
+	}
 
-    public void cadastrar(Categoria categoria){
-        this.em.persist(categoria);
-    }
-    public void atualizar(Categoria categoria){
-        this.em.merge(categoria);
-    }
+	public void cadastrar(Categoria categoria) {
+		this.em.persist(categoria);
+	}
 
-    public void remover(Categoria categoria){
-        categoria = em.merge(categoria);
-        this.em.remove(categoria);
-    }
+	public void atualizar(Categoria categoria) {
+		this.em.merge(categoria);
+	}
+
+	public void remover(Categoria categoria) {
+		categoria = em.merge(categoria);
+		this.em.remove(categoria);
+	}
+
 }
