@@ -18,7 +18,8 @@ public class Pedido {
 
     private LocalDate data = LocalDate.now();
 
-    @ManyToOne
+    //Por padrão relacionamento ToOne são Eager, carregamento automático
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "cliente_id")
     private Cliente cliente;
 
@@ -78,5 +79,13 @@ public class Pedido {
 
     public void setValorTotal(BigDecimal valorTotal) {
         this.valorTotal = valorTotal;
+    }
+
+    public List<ItemPedido> getItens() {
+        return itens;
+    }
+
+    public void setItens(List<ItemPedido> itens) {
+        this.itens = itens;
     }
 }
